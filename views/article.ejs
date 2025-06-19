@@ -10,12 +10,12 @@
     <h1><%= article.title %></h1>
     <p><%- article.article.replace(/\n/g, '<br>') %></p>
 
-    <form action="/articles/<%= article._id %>?_method=DELETE" method="POST">
+    <form action="/notes/<%= article._id %>?_method=DELETE" method="POST">
         <button type="submit">Delete</button>
     </form>
 
     <h2>Edit Article</h>
-    <form action="/articles/<%= article._id %>?_method=PUT" method="POST">
+    <form action="/notes/<%= article._id %>?_method=PUT" method="POST">
         <input type="text" name="title" value="<%= article.title %>" required>
         <textarea type="text" name="article" required><%= article.article %></textarea>
         <button type="submit">Update</button>

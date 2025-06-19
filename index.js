@@ -27,22 +27,22 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model('Article', articleSchema);
 
 app.get('/', (req, res) => {
-    res.redirect('/articles');
+    res.redirect('/notes');
 });
 
-app.get('/articles', async (req, res) => {
+app.get('/notes', async (req, res) => {
     const articles = await Article.find();
     res.render('index', { articles });
 });
 
-app.post('/articles', async (req, res) => {
+app.post('/notes', async (req, res) => {
     const { title, article } = req.body;
     const newArticle = new Article({ title, article });
     await newArticle.save();
-    res.redirect('/articles');
+    res.redirect('/notes');
 });
 
-app.get('/articles/:id', async (req, res) => {
+app.get('/notes/:id', async (req, res) => {
     try {
         const article = await Article.findById(req.params.id);
         if (!article) return res.status(404).send("404! Article Not Found");
@@ -52,27 +52,27 @@ app.get('/articles/:id', async (req, res) => {
     }
 });
 
-app.put('/articles/:id', async (req, res) => {
+app.put('/notes/:id', async (req, res) => {
     try {
         const { title, article } = req.body;
         const updated = await Article.findByIdAndUpdate(req.params.id, { title, article }, { new: true });
         if (!updated) return res.status(404).send("404! Article Not Found");
-        res.redirect(`/articles/${req.params.id}`);
+        res.redirect(`/notes/${req.params.id}`);
     } catch (err) {
         res.status(500).send("Error updating article");
     }
 });
 
-app.delete('/articles/:id', async (req, res) => {
+app.delete('/notes/:id', async (req, res) => {
     try {
         await Article.findByIdAndDelete(req.params.id);
-        res.redirect('/articles');
+        res.redirect('/notes');
     } catch (err) {
         res.status(500).send("Error deleting article");
     }
 });
 
-app.get('/api/articles', async (req, res) => {
+app.get('/api/notes', async (req, res) => {
     const articles = await Article.find();
     res.json(articles);
 })
