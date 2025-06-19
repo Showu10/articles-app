@@ -26,6 +26,10 @@ const articleSchema = new mongoose.Schema({
 });
 const Article = mongoose.model('Article', articleSchema);
 
+app.get('/', (req, res) => {
+    res.redirect('/notes');
+})
+
 app.get('/notes', async (req, res) => {
     const articles = await Article.find();
     res.render('index', { articles });
