@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Articles App</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <h1>Articles App</h1>
+    <h2>Add New Article</h2>
+    <form method="POST" action="/articles">
+      <input type="text" name="title" placeholder="Title" required />
+      <br />
+      <textarea
+        type="text"
+        name="article"
+        placeholder="Content"
+        required
+      ></textarea>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+    <h2>All Articles</h2>
+    <ul>
+      <% articles.forEach(article => { %>
+      <li>
+        <h3><%= article.title %></h3>
+        <p><%- article.article.replace(/\n/g, '<br>') %></p>
+        <a href="/articles/<%= article._id %>">View</a>
+      </li>
+      <% }) %>
+    </ul>
+    <button><a style="color: white;" href="/api/articles">Access API</a></button>
+  </body>
+</html>
